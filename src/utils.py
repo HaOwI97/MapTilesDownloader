@@ -111,6 +111,17 @@ class Utils:
 			canvas.paste(quadTiles[3], box=(0, height - quadTiles[3].size[1]))
 
 		return canvas
+	
+	@staticmethod
+	def convert_jpg(full_path):
+		im = Image.open(full_path)
+		im.convert('RGB').save(full_path.replace('png', 'jpg'))
+		im.close()
+		os.remove(full_path)
+
+	@staticmethod
+	def zipFolder(originFolder):
+		shutil.make_archive(originFolder+'_archive', 'zip', originFolder)
 
 	@staticmethod
 	def downloadFile(url, destination, x, y, z):
