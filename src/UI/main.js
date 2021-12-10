@@ -95,7 +95,7 @@ $(function() {
 			var lat = $("#lat-box").val();
 			var lon = $("#lon-box").val();
 
-			if (lat == "Lat" || lon == "Lon") {
+			if (lat == "Lat" || lon == "Lon" || lat == "" || lon == "") {
 //			    forward geocoding
                 console.log("forward");
 			    geocoder.query(location);
@@ -212,11 +212,11 @@ $(function() {
 	}
 
 	function getMinZoom() {
-		return Math.min(parseInt($("#zoom-from-box").val()), parseInt($("#zoom-to-box").val()));
+		return Math.min(parseInt($("#zoom-from-box").text()), parseInt($("#zoom-to-box").text()));
 	}
 
 	function getMaxZoom() {
-		return Math.max(parseInt($("#zoom-from-box").val()), parseInt($("#zoom-to-box").val()));
+		return Math.max(parseInt($("#zoom-from-box").text()), parseInt($("#zoom-to-box").text()));
 	}
 
 	function getArrayByBounds(bounds) {
@@ -461,7 +461,7 @@ $(function() {
 		var outputFile = $("#output-file-box").val();
 		var outputType = $("#output-type").val();
 		var outputScale = $("#output-scale").val();
-		var source = $("#source-box").val()
+		var source = $("#source-box").text()
 
 		var bounds = getBounds();
 		var boundsArray = [bounds.getSouthWest().lng, bounds.getSouthWest().lat, bounds.getNorthEast().lng, bounds.getNorthEast().lat]
@@ -628,7 +628,7 @@ $(function() {
 	}
 
 	initializeMaterialize();
-	initializeSources();
+//	initializeSources();
 	initializeMap();
 	initializeSearch();
 	initializeRectangleTool();
