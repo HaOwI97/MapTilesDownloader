@@ -106,14 +106,14 @@ class serverHandler(BaseHTTPRequestHandler):
 
 				if os.path.isfile(tempFilePath):
 					self.writerByType(outputType).addTile(lock, filePath, tempFilePath, x, y, z, outputScale)
-
+					Utils.convert_jpg(filePath)
 					with open(tempFilePath, "rb") as image_file:
 						result["image"] = base64.b64encode(image_file.read()).decode("utf-8")
 
 					os.remove(tempFilePath)
 
 					result["message"] = 'Tile Downloaded'
-					print("SAVE: " + filePath)
+					print("SAVE: " + filePath.replace('png', 'jpg'))
 
 				else:
 					result["message"] = 'Download failed'
@@ -189,10 +189,11 @@ class serverHandler(BaseHTTPRequestHandler):
 
 			self.writerByType(outputType).close(lock, os.path.join("output", outputDirectory), filePath, minZoom, maxZoom)
 
+			Utils.zipFolder(os.path.join("output", outputDirectory))
+
 			result = {}
 			result["code"] = 200
 			result["message"] = 'Downloaded ended'
-
 			self.send_response(200)
 			# self.send_header("Access-Control-Allow-Origin", "*")
 			self.send_header("Content-Type", "application/json")
