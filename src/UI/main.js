@@ -49,11 +49,11 @@ $(function() {
 		map = new mapboxgl.Map({
 			container: 'map-view',
 			style: 'mapbox://styles/aliashraf/ck6lw9nr80lvo1ipj8zovttdx',
-			center: [-73.983652, 40.755024], 
+			center: [-73.983652, 40.755024],
 			zoom: 12
 		});
 
-		geocoder = new MapboxGeocoder({ accessToken: mapboxgl.accessToken });
+        geocoder = new MapboxGeocoder({ accessToken: mapboxgl.accessToken });
 		var control = map.addControl(geocoder);
 	}
 
@@ -92,8 +92,18 @@ $(function() {
 	function initializeSearch() {
 		$("#search-form").submit(function(e) {
 			var location = $("#location-box").val();
-			geocoder.query(location);
+			var lat = $("#lat-box").val();
+			var lon = $("#lon-box").val();
 
+			if (lat == "Lat" || lon == "Lon") {
+//			    forward geocoding
+                console.log("forward");
+			    geocoder.query(location);
+			} else {
+//			    reverse geocoding
+                console.log("reverse");
+                map.flyTo({center: [parseFloat(lon), parseFloat(lat)]});
+			}
 			e.preventDefault();
 		})
 	}

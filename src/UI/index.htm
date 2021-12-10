@@ -51,7 +51,10 @@
 		<form id='search-form' class='sidebar-section row'>
 			<div class="input-field col s12">
 				<input id="location-box" type="text" value="New York" />
-				<label for="location-box">Enter a location</label>
+				<label for="location-box">Enter a location or Lat/Lon Pair</label>
+				<input id="lat-box" type="text" value="Lat" />
+				<input id="lon-box" type="text" value="Lon" />
+				<input type="submit" value="Search">
 			</div>
 		</form>
 
@@ -79,7 +82,7 @@
 		<div class='sidebar-section'>
 			<div class="row">
 				<div class="input-field col s6">
-					<input id="zoom-from-box" type="text" value='15'/>
+					<input id="zoom-from-box" type="text" value='12'/>
 					<label for="zoom-from-box" class="active">Zoom from:</label>
 				</div>
 				<div class="input-field col s6">
@@ -112,7 +115,7 @@
 			4
 		</div>
 		<div class="step-title">
-			<a href='javascript:void(0)' id='more-options-toggle'>More Options (+)</a>
+			<a href='javascript:void(0)' id='more-options-toggle'>Display Specs (+)</a>
 		</div>
 
 		<div style='display:none;' id='more-options' class='sidebar-section row'>
@@ -120,32 +123,41 @@
 			<div class="input-field col s12">
 				<select id="output-scale" type="text">
 					<option value="1">1x</option>
-					<option value="2">2x</option>
+<!--					<option value="2">2x</option>-->
 				</select>
 				<label for="output-scale">Output scale</label>
 			</div>
 
 			<div class="input-field col s12">
-				<input id="output-directory-box" type="text" value="{timestamp}">
+				<select id="output-directory-box" type="text">
+					<option value="{timestamp}">{timestamp}</option>
+				</select>
+<!--				<input id="output-directory-box" type="text" value="{timestamp}">-->
 				<label for="output-directory-box">Output directory</label>
 			</div>
 
 			<div class="input-field col s12">
 				<select id="output-type" type="text">
 					<option value="directory">Directory</option>
-					<option value="mbtiles">Mbtiles</option>
-					<option value="repo">Repo</option>
+<!--					<option value="mbtiles">Mbtiles</option>-->
+<!--					<option value="repo">Repo</option>-->
 				</select>
 				<label for="output-type">Output type</label>
 			</div>
 
 			<div class="input-field col s12">
-				<input id="output-file-box" type="text" value="{z}/{x}/{y}.png">
+				<select id="output-file-box" type="text">
+					<option value="{z}/{x}/{y}.png">{z}/{x}/{y}.png</option>
+				</select>
+<!--				<input id="output-file-box" type="text" value="{z}/{x}/{y}.png">-->
 				<label for="output-file-box">Output file</label>
 			</div>
 
 			<div class="input-field col s12">
-				<input id="parallel-threads-box" type="text" value="4">
+				<select id="parallel-threads-box" type="text">
+					<option value="4">4</option>
+				</select>
+<!--				<input id="parallel-threads-box" type="text" value="4">-->
 				<label for="parallel-threads-box">Parallel downloads</label>
 			</div>
 		</div>
