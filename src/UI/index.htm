@@ -49,11 +49,24 @@
 		</div>
 
 		<form id='search-form' class='sidebar-section row'>
+			<div>Enter Address or Coordinate</div>
 			<div class="input-field col s12">
 				<input id="location-box" type="text" value="New York" />
-				<label for="location-box">Enter a location or Lat/Lon Pair</label>
-				<input id="lat-box" type="text" value="Lat" />
-				<input id="lon-box" type="text" value="Lon" />
+				<label for="location-box">Address:</label>
+<!--				<input id="lat-box" type="text" value="Lat" />-->
+<!--				<input id="lon-box" type="text" value="Lon" />-->
+				<div>or</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="lat-box" type="text" value='Lat'/>
+						<label for="lat-box" class="active">Latitude:</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="lon-box" type="text" value='Lon'/>
+						<label for="lon-box" class="active">Longitude:</label>
+					</div>
+				</div>
+
 				<input type="submit" value="Search">
 			</div>
 		</form>
@@ -76,35 +89,35 @@
 			3
 		</div>
 		<div class="step-title">
-			Configure
+			Preview
 		</div>
 
 		<div class='sidebar-section'>
-			<div class="row">
-				<div class="input-field col s6">
-					<input id="zoom-from-box" type="text" value='12'/>
-					<label for="zoom-from-box" class="active">Zoom from:</label>
-				</div>
-				<div class="input-field col s6">
-					<input id="zoom-to-box" type="text" value='15'/>
-					<label for="zoom-to-box" class="active">Zoom to:</label>
-				</div>
-			</div>
+<!--			<div class="row">-->
+<!--				<div class="input-field col s6">-->
+<!--					<input id="zoom-from-box" type="text" value='12'/>-->
+<!--					<label for="zoom-from-box" class="active">Zoom from:</label>-->
+<!--				</div>-->
+<!--				<div class="input-field col s6">-->
+<!--					<input id="zoom-to-box" type="text" value='15'/>-->
+<!--					<label for="zoom-to-box" class="active">Zoom to:</label>-->
+<!--				</div>-->
+<!--			</div>-->
 
 
-			<div class="row">
-				<div class="input-field col s10">
-<!--					<input id="source-box" type="text" value='http://ecn.t0.tiles.virtualearth.net/tiles/a{quad}.jpeg?g=129&mkt=en&stl=H'>-->
-					<input id="source-box" type="text" value='https://mt0.google.com/vt?lyrs=m&x={x}&s=&y={y}&z={z}'>
-					<label for="source-box">Map Tile Source</label>
-				</div>
-				<div class="input-field col s2">
-					<a class='waves-effect waves-light btn-small blue-grey lighten-2 z-depth-0 dropdown-trigger' id='source-select' href='#' data-target='sources'>⯆</a>
+<!--			<div class="row">-->
+<!--				<div class="input-field col s10">-->
+<!--&lt;!&ndash;					<input id="source-box" type="text" value='http://ecn.t0.tiles.virtualearth.net/tiles/a{quad}.jpeg?g=129&mkt=en&stl=H'>&ndash;&gt;-->
+<!--					<input id="source-box" type="text" value='https://mt0.google.com/vt?lyrs=m&x={x}&s=&y={y}&z={z}'>-->
+<!--					<label for="source-box">Map Tile Source</label>-->
+<!--				</div>-->
+<!--				<div class="input-field col s2">-->
+<!--					<a class='waves-effect waves-light btn-small blue-grey lighten-2 z-depth-0 dropdown-trigger' id='source-select' href='#' data-target='sources'>⯆</a>-->
 
-					<ul id='sources' class='dropdown-content'>
-					</ul>
-				</div>
-			</div>
+<!--					<ul id='sources' class='dropdown-content'>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
 
 			<div class='center-align'>
 				<a class="waves-effect waves-light z-depth-0 btn-small orange darken-3" id='grid-preview-button'>Preview Grid</a>
@@ -120,6 +133,40 @@
 		</div>
 
 		<div style='display:none;' id='more-options' class='sidebar-section row'>
+
+			<div class="row">
+				<div class="input-field col s6">
+					<div id="zoom-from-box">
+						12
+					</div>
+<!--					<input id="zoom-from-box" type="text" value='12'/>-->
+					<label for="zoom-from-box" class="active">Zoom from:</label>
+				</div>
+				<div class="input-field col s6">
+					<div id="zoom-to-box">
+						15
+					</div>
+<!--					<input id="zoom-to-box" type="text" value='15'/>-->
+					<label for="zoom-to-box" class="active">Zoom to:</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s10">
+<!--					<input id="source-box" type="text" value='http://ecn.t0.tiles.virtualearth.net/tiles/a{quad}.jpeg?g=129&mkt=en&stl=H'>-->
+<!--					<input id="source-box" type="text" value='https://mt0.google.com/vt?lyrs=m&x={x}&s=&y={y}&z={z}'>-->
+					<div id = source-box>
+						https://mt0.google.com/vt?lyrs=m&x={x}&s=&y={y}&z={z}
+					</div>
+					<label for="source-box">Map Tile Source : Google Maps</label>
+				</div>
+<!--				<div class="input-field col s2">-->
+<!--					<a class='waves-effect waves-light btn-small blue-grey lighten-2 z-depth-0 dropdown-trigger' id='source-select' href='#' data-target='sources'>⯆</a>-->
+
+<!--					<ul id='sources' class='dropdown-content'>-->
+<!--					</ul>-->
+<!--				</div>-->
+			</div>
 
 			<div class="input-field col s12">
 				<select id="output-scale" type="text">
