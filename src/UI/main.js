@@ -146,15 +146,45 @@ $(function() {
 			startDrawing();
 		})
 
+		$("#radius-draw-button").click(function() {
+			startDrawingWithRadius();
+		})
+
 	}
 
 	function startDrawing() {
 		removeGrid();
 		draw.deleteAll();
 		draw.changeMode('draw_rectangle');
-
 		M.Toast.dismissAll();
 		M.toast({html: 'Click two points on the map to make a rectangle.', displayLength: 7000})
+	}
+
+	function startDrawingWithRadius() {
+		removeGrid();
+		draw.deleteAll();
+        draw.changeMode('simple_select')
+        var lat = $("#lat-box").val();
+        var lon = $("#lon-box").val();
+        var centerCoord = [parseFloat(lon),parseFloat(lat)];
+//        var polygon = turf.polygon([[[-74.93764675097624, 40.7536586203513],[-74.92460048633676, 40.7536586203513],[-74.92460048633676, 40.769131281148816],[-74.93764675097624, 40.769131281148816],[-74.93764675097624, 40.7536586203513]]]);
+        var polygon = turf.polygon(getPolygonByRadius(centerCoord,13));
+        var id = draw.add(polygon);
+		M.Toast.dismissAll();
+		M.toast({html: 'Click two points on the map to make a rectangle.', displayLength: 7000})
+	}
+
+	function getPolygonByRadius(centerCoord, radius){
+        // centerCoord : [long, lat]
+        // radius : number in kilometer
+	    var lat = centerCoord[1];
+	    var lon = centerCoord[0];
+	    var dlat = radius/111;
+	    var dlon = radius/(Math.cos(lat*3.1415926/180) * 111);
+        // four points that surround center (appear as five point to form a closed shape, ABCDA)
+	    ret = [[[lon-dlon, lat-dlat],[lon+dlon,lat-dlat],[lon+dlon,lat+dlat],[lon-dlon,lat+dlat],[lon-dlon, lat-dlat]]];
+
+	    return ret
 	}
 
 	function initializeGridPreview() {
@@ -274,7 +304,6 @@ $(function() {
 		var outputScale = $("#output-scale").val();
 		//var thisZoom = zoomLevel - (outputScale-1)
 		var thisZoom = zoomLevel
-
 		var TY    = lat2tile(bounds.getNorthEast().lat, thisZoom);
 		var LX   = long2tile(bounds.getSouthWest().lng, thisZoom);
 		var BY = lat2tile(bounds.getSouthWest().lat, thisZoom);
@@ -317,7 +346,6 @@ $(function() {
 	}
 
 	function previewGrid() {
-
 		var maxZoom = getMaxZoom();
 		var grid = getGrid(maxZoom);
 
