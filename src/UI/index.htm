@@ -44,32 +44,68 @@
 		<div class='step-number'>
 			1
 		</div>
+
 		<div class="step-title">
 			Search an Area
 		</div>
 
-		<form id='search-form' class='sidebar-section row'>
-			<div>Enter Address or Coordinate</div>
-			<div class="input-field col s12">
-				<input id="location-box" type="text" value="New York" />
-				<label for="location-box">Address:</label>
-<!--				<input id="lat-box" type="text" value="Lat" />-->
-<!--				<input id="lon-box" type="text" value="Lon" />-->
-				<div>or</div>
-				<div class="row">
-					<div class="input-field col s6">
-						<input id="lat-box" type="text" value='Lat'/>
-						<label for="lat-box" class="active">Latitude:</label>
+		<div class="sidebar-section row">
+			<a href='javascript:void(0)' id='mode-selection-toggle'>    Toggle Mode (+)</a>
+		</div>
+
+		<div id='address-mode' class='sidebar-section row'>
+			<form id='address-search-form' class='sidebar-section row'>
+				<div>Adress with Box mode</div>
+				<div class="input-field col s12">
+					<input id="location-box" type="text" value="New York" />
+					<label for="location-box">Address:</label>
+					<input type="submit" value="Search">
+				</div>
+			</form>
+		</div>
+
+		<div style='display:none;' id='radius-mode' class='sidebar-section row'>
+			<form id='radius-search-form' class='sidebar-section row'>
+				<div>Coordinate with Radius mode</div>
+				<div class="input-field col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="lat-box" type="text" value='Lat'/>
+							<label for="lat-box" class="active">Latitude:</label>
+						</div>
+						<div class="input-field col s6">
+							<input id="lon-box" type="text" value='Lon'/>
+							<label for="lon-box" class="active">Longitude:</label>
+						</div>
 					</div>
-					<div class="input-field col s6">
-						<input id="lon-box" type="text" value='Lon'/>
-						<label for="lon-box" class="active">Longitude:</label>
-					</div>
+
+
+					<input type="submit" value="Search">
 				</div>
 
-				<input type="submit" value="Search">
-			</div>
-		</form>
+			</form>
+		</div>
+
+<!--		<form id='search-form' class='sidebar-section row'>-->
+<!--			<div>Enter Address or Coordinate</div>-->
+<!--			<div class="input-field col s12">-->
+<!--				<input id="location-box" type="text" value="New York" />-->
+<!--				<label for="location-box">Address:</label>-->
+<!--				<div>or</div>-->
+<!--				<div class="row">-->
+<!--					<div class="input-field col s6">-->
+<!--						<input id="lat-box" type="text" value='Lat'/>-->
+<!--						<label for="lat-box" class="active">Latitude:</label>-->
+<!--					</div>-->
+<!--					<div class="input-field col s6">-->
+<!--						<input id="lon-box" type="text" value='Lon'/>-->
+<!--						<label for="lon-box" class="active">Longitude:</label>-->
+<!--					</div>-->
+<!--				</div>-->
+
+<!--				<input type="submit" value="Search">-->
+<!--			</div>-->
+<!--		</form>-->
 
 
 		<div class='step-number'>
@@ -79,16 +115,25 @@
 			Select a Region
 		</div>
 
-		<div class='center-align sidebar-section'>
-			<p>
-				<a class="waves-effect waves-light z-depth-0 btn-small orange darken-3" id='rectangle-draw-button'>Draw a rectangle</a>
-			</p>
+		<div id='address-mode-button' class='sidebar-section row'>
+			<div class='center-align sidebar-section'>
+				<p>
+					<a class="waves-effect waves-light z-depth-0 btn-small orange darken-3" id='rectangle-draw-button'>Draw a rectangle</a>
+				</p>
+			</div>
 		</div>
 
-		<div class='center-align sidebar-section'>
-			<p>
-				<a class="waves-effect waves-light z-depth-0 btn-small orange darken-3" id='radius-draw-button'>Auto Draw With Radius</a>
-			</p>
+		<div style='display:none;' id='radius-mode-button' class='sidebar-section row'>
+
+			<div class="input-field col s12">
+				<input id="radius-box" type="text" value="6.5" />
+				<label for="radius-box">Radius (km):</label>
+			</div>
+			<div class='center-align sidebar-section'>
+				<p>
+					<a class="waves-effect waves-light z-depth-0 btn-small orange darken-3" id='radius-draw-button'>Draw box with radius</a>
+				</p>
+			</div>
 		</div>
 
 		<div class='step-number'>

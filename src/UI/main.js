@@ -106,7 +106,31 @@ $(function() {
 			}
 			e.preventDefault();
 		})
+
+		$("#address-search-form").submit(function(e) {
+			var location = $("#location-box").val();
+            geocoder.query(location);
+			e.preventDefault();
+		})
+
+        $("#radius-search-form").submit(function(e) {
+			var lat = $("#lat-box").val();
+			var lon = $("#lon-box").val();
+            map.flyTo({center: [parseFloat(lon), parseFloat(lat)]});
+			e.preventDefault();
+		})
+
 	}
+
+    function initializeModeSelection() {
+        $("#mode-selection-toggle").click(function() {
+			$("#address-mode").toggle();
+			$("#radius-mode").toggle();
+			$("#address-mode-button").toggle();
+			$("#radius-mode-button").toggle();
+
+		})
+    }
 
 	function initializeMoreOptions() {
 
@@ -166,12 +190,13 @@ $(function() {
         draw.changeMode('simple_select')
         var lat = $("#lat-box").val();
         var lon = $("#lon-box").val();
+        var radius = $('#radius-box').val()
         var centerCoord = [parseFloat(lon),parseFloat(lat)];
 //        var polygon = turf.polygon([[[-74.93764675097624, 40.7536586203513],[-74.92460048633676, 40.7536586203513],[-74.92460048633676, 40.769131281148816],[-74.93764675097624, 40.769131281148816],[-74.93764675097624, 40.7536586203513]]]);
-        var polygon = turf.polygon(getPolygonByRadius(centerCoord,13));
+        var polygon = turf.polygon(getPolygonByRadius(centerCoord,radius));
         var id = draw.add(polygon);
 		M.Toast.dismissAll();
-		M.toast({html: 'Click two points on the map to make a rectangle.', displayLength: 7000})
+		M.toast({html: 'Range selected. You can preview or download the tiles~', displayLength: 7000})
 	}
 
 	function getPolygonByRadius(centerCoord, radius){
@@ -182,7 +207,7 @@ $(function() {
 	    var dlat = radius/111;
 	    var dlon = radius/(Math.cos(lat*3.1415926/180) * 111);
         // four points that surround center (appear as five point to form a closed shape, ABCDA)
-	    ret = [[[lon-dlon, lat-dlat],[lon+dlon,lat-dlat],[lon+dlon,lat+dlat],[lon-dlon,lat+dlat],[lon-dlon, lat-dlat]]];
+	    var ret = [[[lon-dlon, lat-dlat],[lon+dlon,lat-dlat],[lon+dlon,lat+dlat],[lon-dlon,lat+dlat],[lon-dlon, lat-dlat]]];
 
 	    return ret
 	}
@@ -658,6 +683,7 @@ $(function() {
 	initializeMaterialize();
 //	initializeSources();
 	initializeMap();
+	initializeModeSelection()
 	initializeSearch();
 	initializeRectangleTool();
 	initializeGridPreview();
