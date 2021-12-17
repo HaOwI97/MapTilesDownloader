@@ -9,6 +9,7 @@ $(function() {
 
 	var cancellationToken = null;
 	var requests = [];
+	var maxRadius = 14;
 
 	var sources = {
 
@@ -97,11 +98,9 @@ $(function() {
 
 			if (lat == "Lat" || lon == "Lon" || lat == "" || lon == "") {
 //			    forward geocoding
-                console.log("forward");
 			    geocoder.query(location);
 			} else {
 //			    reverse geocoding
-                console.log("reverse");
                 map.flyTo({center: [parseFloat(lon), parseFloat(lat)]});
 			}
 			e.preventDefault();
@@ -191,12 +190,15 @@ $(function() {
         var lat = $("#lat-box").val();
         var lon = $("#lon-box").val();
         var radius = $('#radius-box').val()
-        var centerCoord = [parseFloat(lon),parseFloat(lat)];
-//        var polygon = turf.polygon([[[-74.93764675097624, 40.7536586203513],[-74.92460048633676, 40.7536586203513],[-74.92460048633676, 40.769131281148816],[-74.93764675097624, 40.769131281148816],[-74.93764675097624, 40.7536586203513]]]);
-        var polygon = turf.polygon(getPolygonByRadius(centerCoord,radius));
-        var id = draw.add(polygon);
-		M.Toast.dismissAll();
-		M.toast({html: 'Range selected. You can preview or download the tiles~', displayLength: 7000})
+        if (radius > 13) {
+            M.toast({html: 'Maximum Radius Reached, Radius should not exceed 13km', displayLength: 7000})
+        } else {
+            var centerCoord = [parseFloat(lon),parseFloat(lat)];
+            var polygon = turf.polygon(getPolygonByRadius(centerCoord,radius));
+            var id = draw.add(polygon);
+            M.Toast.dismissAll();
+            M.toast({html: 'Range selected. You can preview or download the tiles~', displayLength: 7000})
+        }
 	}
 
 	function getPolygonByRadius(centerCoord, radius){
@@ -371,6 +373,16 @@ $(function() {
 	}
 
 	function previewGrid() {
+        var data = draw.getAll();
+        if (data.features.length > 0) {
+            var area = turf.area(data);
+            if (area > maxRadius*2 * maxRadius*2 * 1000000) {
+                M.toast({html: 'Maximum size Reached, Please draw smaller box', displayLength: 7000});
+                return;
+            }
+        }
+
+
 		var maxZoom = getMaxZoom();
 		var grid = getGrid(maxZoom);
 
@@ -492,6 +504,14 @@ $(function() {
 			M.toast({html: 'You need to select a region first.', displayLength: 3000})
 			return;
 		}
+
+
+        var data = draw.getAll();
+        var area = turf.area(data);
+        if (area > maxRadius*2 * maxRadius*2 * 1000000) {
+            M.toast({html: 'Maximum size Reached, Please draw smaller box', displayLength: 7000});
+            return;
+        }
 
 		cancellationToken = false; 
 		requests = [];
